@@ -40,11 +40,11 @@ Se non trovi informazioni, ammettilo senza inventare.
 """
 
 # --- CLASSE CLIENT AGGIORNATA ---
-
+#qwen3-vl:8b
 class LLMClient:
-    def __init__(self, provider="ollama", model="qwen3-vl:8b"):
+    def __init__(self, provider="ollama", model="gemma4:e2b"):
         if provider == "ollama":
-            self.base_url = "http://localhost:11434/v1"
+            self.base_url = "http://192.168.1.54:11434/v1"
             self.api_key = "ollama"
         elif provider == "vllm":
             self.base_url = "http://localhost:8000/v1"
@@ -117,16 +117,16 @@ class LLMClient:
         """Doppio passaggio testuale: Refinement Query -> Ricerca -> Risposta."""
         try:
             # --- PASSAGGIO 1: Ottimizzazione Query ---
-            refine_prompt = f"Trasforma questa richiesta in una query di ricerca efficace per SearXNG. Scrivi solo la query: {prompt}"
+            """refine_prompt = f"Trasforma questa richiesta in una query di ricerca efficace per SearXNG. Scrivi solo la query: {prompt}"
             query_res = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": refine_prompt}],
             )
             query = query_res.choices[0].message.content.strip()
-            print(f"Query generata (Text): {query}")
+            print(f"Query generata (Text): {query}")"""
 
             # --- WEB SEARCH ---
-            web_context = cerca_su_web(query)
+            web_context = cerca_su_web(prompt)
 
             # --- PASSAGGIO 2: Risposta Finale ---
             messages = [{"role": "system", "content": self.system_prompt}]

@@ -34,7 +34,7 @@ with open(whitelist_file, "r") as f:
 
 bot = telepot.Bot(TOKEN)
 pipe = WhisperPipeline("./whisper-small-ov", device="NPU")
-llm = LLMClient(provider="ollama", model="qwen3-vl:8b")
+llm = LLMClient(provider="ollama", model="gemma4:e2b")
 
 chat_histories = {}
 MAX_HISTORY = 10
